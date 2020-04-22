@@ -171,17 +171,16 @@ def convolve(imagem, mascara):
     pass
 
 def maskBlur():
-    #return (1/16)*[[1, 2, 1], [2, 4, 2], [1, 2, 1]]
-    pass	
-
+    return (1/16)*np.asarray([[1, 2, 1], [2, 4, 2], [1, 2, 1]])
+    
 def blur(imagem, mascara):
     pass
 
 def seSquare3():
-    return [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+    return np.asarray([[1, 1, 1], [1, 1, 1], [1, 1, 1]])
 
 def seCross3():
-    return [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+    return np.asarray([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
 
 def erode(imagem, elementoEstruturante):
     pass
