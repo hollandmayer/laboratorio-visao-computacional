@@ -9,18 +9,22 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+#Questao 2 
 def imread(path_imagem):
     return plt.imread(path_imagem, np.uint8)
-    
+
+#Questao 3    
 def nchannels(imagem):
     if(len(imagem.shape) == 2):
         return 1
     else:
         return len(imagem[0][0])
 
+#Questao 4
 def size(imagem):
     return [len(imagem[0]), len(imagem)]
 
+#Questao 5
 def rgb2gray(imagem):
     imgGS = np.zeros([len(imagem), len(imagem[0])], dtype=np.uint8)
     if(len(imagem.shape) > 2):        
@@ -31,12 +35,13 @@ def rgb2gray(imagem):
         imgGs = imagem        
     return imgGS    
         
-                        
+#Questao 6                        
 def imreadgray(path_imagem):
     imagem = imread(path_imagem)
     imagemGS = rgb2grey(imagem)
     return imagemGS
 
+#Questao 7
 def imshow(imagem):    
     if(len(imagem.shape) == 2):
         #Para questao 7
@@ -48,6 +53,7 @@ def imshow(imagem):
     plt.axis('off')
     plt.show()
 
+#Questao 8
 def thresh(imagem, limiar):
     if(len(imagem.shape) > 2):
         imgTh = np.zeros([len(imagem), len(imagem[0]), 3], dtype=np.uint8)
@@ -77,6 +83,7 @@ def thresh(imagem, limiar):
                     imgTh[i][j] = 0
     return imgTh       
 
+#Questao 9
 def negative(imagem):
     if(len(imagem.shape) > 2):        
         imgNeg = np.zeros([len(imagem), len(imagem[0]), 3], dtype=np.uint8)
@@ -92,6 +99,7 @@ def negative(imagem):
                 imgNeg = 255 - imagem[i][j]        
     return imgNeg 
 
+#Questao 10
 def contrast(imagem, r, m):
     if(len(imagem.shape) > 2):
         imgContr = np.zeros([len(imagem), len(imagem[0]), 3], dtype=np.uint8)
@@ -107,21 +115,34 @@ def contrast(imagem, r, m):
                 imgContr[i][j] = round(r * (imagem[i][j] - m) + m)
     return imgContr                
 
-def hist(imagem):
+#Questao 11
+def hist(imagem):    
     if(len(imagem.shape) > 2):
         qtdPixelsComIntensidade = np.zeros([256, 3], dtype=int)
         for i in range(len(imagem)):
             for j in range(len(imagem[i])):
-                for w in range(3):
-                    for k in range(256):
-                        if(imagem[i][j][w] == k):
-                            qtdPixelsComIntensidade[k][w] += 1
-                            break                           
+                for k in range(3):
+                    qtdPixelsComIntensidade[imagem[i][j][k]][k] += 1
+    else:
+        qtdPixelsComIntensidade = np.zeros([256], dtype=int)
+        for i in range(len(imagem)):
+            for j in range(len(imagem[i])):
+                qtdPixelsComIntensidade[imagem[i][j]] += 1
+        
+                    
     return qtdPixelsComIntensidade                    
 
 def showhist(vetHist, bin=1):
-    pass
-
+    intensidade = []
+    for i in range(0, 256):
+        intensidade.append(i)
+    plt.bar(intensidade, vetHist, color="black")
+    plt.xlabel("Niveis de cinza")
+    plt.ylabel("Quantidade do nivel de cinza")
+    plt.title("Quantidade x Niveis de Cinza")
+    plt.show()
+    #return intensidade
+    
 def histeq(imagemEscalaCinza):
     pass
 
