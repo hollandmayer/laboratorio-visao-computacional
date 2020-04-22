@@ -133,16 +133,37 @@ def hist(imagem):
     return qtdPixelsComIntensidade                    
 
 def showhist(vetHist, bin=1):
-    intensidade = []
-    for i in range(0, 256):
-        intensidade.append(i)
-    plt.bar(intensidade, vetHist, color="black")
-    plt.xlabel("Niveis de cinza")
-    plt.ylabel("Quantidade do nivel de cinza")
-    plt.title("Quantidade x Niveis de Cinza")
+
+    intensidade = np.arange(256)
+
+    if(len(vetHist.shape) == 2):
+
+        barWidth = 0.25
+        r = np.arange(256)
+        g = [x + barWidth for x in r]
+        b = [x + barWidth for x in g]
+
+        vetHistR = [x[0] for x in vetHist]
+        vetHistG = [x[1] for x in vetHist]
+        vetHistB = [x[2] for x in vetHist]
+        
+        plt.bar(r, vetHistR, color="red", width=barWidth, label="R")
+        plt.bar(g, vetHistG, color="green", width=barWidth, label="G")
+        plt.bar(b, vetHistB, color="blue", width=barWidth, label="B")
+        plt.xlabel("Intensidades da cor")
+        plt.ylabel("Quantidade das intensidades da cor")
+        plt.title("Quantidade x Intensidades da cor")
+        plt.legend()
+            
+    else:        
+
+        plt.bar(intensidade, vetHist, color="black")
+        plt.xlabel("Niveis de cinza")
+        plt.ylabel("Quantidade do nivel de cinza")
+        plt.title("Quantidade x Niveis de Cinza")
+        
     plt.show()
-    #return intensidade
-    
+        
 def histeq(imagemEscalaCinza):
     pass
 
