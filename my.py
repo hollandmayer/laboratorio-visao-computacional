@@ -132,6 +132,7 @@ def hist(imagem):
                     
     return qtdPixelsComIntensidade                    
 
+#Questao 12
 def showhist(vetHist, bin=1):
 
     intensidade = np.arange(256)
@@ -163,28 +164,36 @@ def showhist(vetHist, bin=1):
         plt.title("Quantidade x Niveis de Cinza")
         
     plt.show()
-        
+
+#Questao 14        
 def histeq(imagemEscalaCinza):
     pass
 
+#Questao 15
 def convolve(imagem, mascara):
     pass
 
+#Questao 16
 def maskBlur():
     return (1/16)*np.asarray([[1, 2, 1], [2, 4, 2], [1, 2, 1]])
-    
+
+#Questao 17    
 def blur(imagem, mascara):
     pass
 
+#Questao 18
 def seSquare3():
     return np.asarray([[1, 1, 1], [1, 1, 1], [1, 1, 1]])
 
+#Questao 19
 def seCross3():
     return np.asarray([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
 
+#Questao 20
 def erode(imagem, elementoEstruturante):
     pass
 
+#Questao 21
 def dilate(imagem, elementoEstruturante):
     pass
     
