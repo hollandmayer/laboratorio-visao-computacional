@@ -167,8 +167,37 @@ def showhist(vetHist, bin=1):
 
 #Questao 14        
 def histeq(imagemEscalaCinza):
-    pass
 
+    #Verificando se a imagem esta em escala de cinza
+    if(nchannels(imagemEscalaCinza) != 1):
+        return "Apenas para imagens em escala de cinza"
+    else:
+        #Gerando histograma da fuunção massa de probabilidade
+        h = hist(imagemEscalaCinza)
+        hpmf = np.arange(256, dtype=float)
+        dimImg = size(imagemEscalaCinza)
+        totalPixels = dimImg[0]*dimImg[1]
+        for i in range(len(h)):
+            hpmf[i] = h[i]/totalPixels
+        
+        #Calculando o histograma acumulado da funcao massa de probabilidade
+        ha = np.arange(256, dtype=float)
+        ha[0] = hpmf[0]
+        for i in range(1, len(ha)):
+            ha[i] = ha[i-1] + hpmf[i]
+
+        #Normalizando o histograma acumulado...
+        for i in range(0, len(ha)):
+            ha[i] = ha[i]*255 
+
+        #Gerando a imagem de histograma normalizado...
+        imgHistEq = np.zeros([len(imagemEscalaCinza), len(imagemEscalaCinza[0])], dtype=np.uint8)
+        for i in range(len(imgHistEq)):
+            for j in range(len(imgHistEq[0])):
+                imgHistEq[i][j] = ha[imagemEscalaCinza[i][j]]
+        
+        return imgHistEq
+        
 #Questao 15
 def convolve(imagem, mascara):
     pass
