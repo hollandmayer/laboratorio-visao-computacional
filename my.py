@@ -173,20 +173,20 @@ def histeq(imagemEscalaCinza):
         return "Apenas para imagens em escala de cinza"
     else:
 
-        #Gerando histograma da fuunção massa de probabilidade
+        #Gerando histograma da função massa de probabilidade
         h = hist(imagemEscalaCinza)
-        hpmf = np.arange(256, dtype=float)
+        r = np.arange(256, dtype=float)
         dimImg = size(imagemEscalaCinza)
         totalPixels = dimImg[0]*dimImg[1]
         for i in range(len(h)):
-            hpmf[i] = h[i]/totalPixels
+            r[i] = h[i]/totalPixels
         
         #Calculando o histograma acumulado da funcao massa de probabilidade
         #Esse histograma acumulado normalizado será nossa função de transformação    
         T = np.arange(256, dtype=float)
-        T[0] = hpmf[0]
+        T[0] = r[0]
         for i in range(1, len(T)):
-            T[i] = T[i-1] + hpmf[i]
+            T[i] = T[i-1] + r[i]
 
         #Normalizando o histograma acumulado...
         for i in range(0, len(T)):
