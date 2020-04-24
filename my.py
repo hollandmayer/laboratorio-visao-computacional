@@ -193,14 +193,14 @@ def histeq(imagemEscalaCinza):
             T[i] = T[i]*255
         
         #Gerando a imagem de histograma normalizado...
-        imgHistEq = np.zeros([len(imagemEscalaCinza), len(imagemEscalaCinza[0])], dtype=np.uint8)
-        for i in range(len(imgHistEq)):
-            for j in range(len(imgHistEq[0])):
+        s = np.zeros([len(imagemEscalaCinza), len(imagemEscalaCinza[0])], dtype=np.uint8)
+        for i in range(len(s)):
+            for j in range(len(s[0])):
                 #Função de Transformação!
                 #s = T[r]
-                imgHistEq[i][j] = T[imagemEscalaCinza[i][j]]
+                s[i][j] = T[imagemEscalaCinza[i][j]]
         
-        return imgHistEq
+        return s
         
 #Questao 15
 def convolve(imagem, mascara):
