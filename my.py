@@ -204,8 +204,33 @@ def histeq(imagemEscalaCinza):
         
 #Questao 15
 def convolve(imagem, mascara):
-    pass
 
+    #Primeiro passo: Gerar a imagem com a borda
+    #ampliada para que o filtro não diminua a imagem
+    imgParaConv = np.zeros([len(imagem)+2, len(imagem[0])+2, 3], dtype=np.uint8)
+
+    #Segundo passo: Preencher a nova imagem com a
+    #imagem passada como argumento
+    for i in range(len(imagem)):
+	for j in range(len(imagem[0])):
+		imgParaConv[i+1][j+1] = imagem[i][j]
+
+    #Terceiro passo: Preencher as bordas da imagem nova
+    #(repetir pixels mais próximos das bordas)
+    imgParaConv[0][0] = imagem[0][0]
+    imgParaConv[len(imgParaConv)-1][0] = imagem[len(imagem)-1][0]
+    imgParaConv[0][len(imgParaConv[0])-1] = imagem[0][len(imagem[0])-1]
+    imgParaConv[len(imgParaConv)-1][len(imgParaConv[0])-1] = imagem[len(imagem)-1][len(imagem[0])-1]
+		
+    for i in range(len(imagem)):
+	imgParaConv[0][i+1] = imagem[0][i]
+	imgParaConv[len(imgParaConv)-1][i+1] = imagem[len(imagem)-1][i]
+	imgParaConv[i+1][0] = imagem[i][0]
+	imgParaConv[i+1][len(imgParaConv[0])-1] = imagem[i][len(imagem[0])-1]
+
+    
+    
+    
 #Questao 16
 def maskBlur():
     return (1/16)*np.asarray([[1, 2, 1], [2, 4, 2], [1, 2, 1]])
