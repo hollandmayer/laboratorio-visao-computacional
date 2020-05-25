@@ -212,8 +212,8 @@ def convolve(imagem, mascara):
     #Segundo passo: Preencher a nova imagem com a
     #imagem passada como argumento
     for i in range(len(imagem)):
-	for j in range(len(imagem[0])):
-		imgParaConv[i+1][j+1] = imagem[i][j]
+        for j in range(len(imagem[0])):
+            imgParaConv[i+1][j+1] = imagem[i][j]
 
     #Terceiro passo: Preencher as bordas da imagem nova
     #(repetir pixels mais próximos das bordas)
@@ -223,12 +223,12 @@ def convolve(imagem, mascara):
     imgParaConv[len(imgParaConv)-1][len(imgParaConv[0])-1] = imagem[len(imagem)-1][len(imagem[0])-1]
 		
     for i in range(len(imagem)):
-	imgParaConv[0][i+1] = imagem[0][i]
-	imgParaConv[len(imgParaConv)-1][i+1] = imagem[len(imagem)-1][i]
-	imgParaConv[i+1][0] = imagem[i][0]
-	imgParaConv[i+1][len(imgParaConv[0])-1] = imagem[i][len(imagem[0])-1]
+        imgParaConv[0][i+1] = imagem[0][i]
+        imgParaConv[len(imgParaConv)-1][i+1] = imagem[len(imagem)-1][i]
+        imgParaConv[i+1][0] = imagem[i][0]
+        imgParaConv[i+1][len(imgParaConv[0])-1] = imagem[i][len(imagem[0])-1]
 
-    
+    return imgParaConv
     
     
 #Questao 16
