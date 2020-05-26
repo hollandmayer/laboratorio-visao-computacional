@@ -217,18 +217,33 @@ def convolve(imagem, mascara):
 
     #Terceiro passo: Preencher as bordas da imagem nova
     #(repetir pixels mais próximos das bordas)
+
+    #Cantos da nova imagem
     imgParaConv[0][0] = imagem[0][0]
     imgParaConv[len(imgParaConv)-1][0] = imagem[len(imagem)-1][0]
     imgParaConv[0][len(imgParaConv[0])-1] = imagem[0][len(imagem[0])-1]
     imgParaConv[len(imgParaConv)-1][len(imgParaConv[0])-1] = imagem[len(imagem)-1][len(imagem[0])-1]
-		
+
+    #Demais margens da nova imagem		
     for i in range(len(imagem)):
         imgParaConv[0][i+1] = imagem[0][i]
         imgParaConv[len(imgParaConv)-1][i+1] = imagem[len(imagem)-1][i]
         imgParaConv[i+1][0] = imagem[i][0]
         imgParaConv[i+1][len(imgParaConv[0])-1] = imagem[i][len(imagem[0])-1]
 
-    return imgParaConv
+    #Hora da magia acontecer!
+    #Aqui efetuaremos a convolução da imagem pela máscara dada    
+    imgConv = np.zeros([len(imagem), len(imagem[0]), 3], dtype=np.uint8)
+    for i in range(1, len(imgParaConv)-1):
+        for j in range(1, len(imgParaConv[0])-1):
+            li = -int(len(mascara)/2)
+            ls = int(len(mascara)/2)+1
+            for k in range(li, ls):
+                for l in range(li, ls):
+                    for c in range(3):
+                        imgConv[i-1][j-1][c] += mascara[k+1][l+1]*imgParaConv[k+i][l+j][c] 
+    #Retorna a imagem convolucionada
+    return imgConv
     
     
 #Questao 16
