@@ -230,11 +230,14 @@ def convolve(imagem, mascara):
     imgParaConv[len(imgParaConv)-1][len(imgParaConv[0])-1] = imagem[len(imagem)-1][len(imagem[0])-1]
 
     #Demais margens da nova imagem		
-    for i in range(len(imagem)):
-        imgParaConv[0][i+1] = imagem[0][i]
-        imgParaConv[len(imgParaConv)-1][i+1] = imagem[len(imagem)-1][i]
+    #Linhas
+    for i in range(len(imagem)):        
         imgParaConv[i+1][0] = imagem[i][0]
         imgParaConv[i+1][len(imgParaConv[0])-1] = imagem[i][len(imagem[0])-1]
+    #Colunas
+    for i in range(len(imagem[0])):
+        imgParaConv[0][i+1] = imagem[0][i]
+        imgParaConv[len(imgParaConv)-1][i+1] = imagem[len(imagem)-1][i]    
 
     #Hora da magia acontecer!
     #Aqui efetuaremos a convolução da imagem pela máscara dada
