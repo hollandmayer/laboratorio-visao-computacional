@@ -204,10 +204,15 @@ def histeq(imagemEscalaCinza):
         
 #Questao 15
 def convolve(imagem, mascara):
-
+    
     #Primeiro passo: Gerar a imagem com a borda
     #ampliada para que o filtro não diminua a imagem
-    imgParaConv = np.zeros([len(imagem)+2, len(imagem[0])+2, 3], dtype=np.uint8)
+
+    #Se a imagem estiver em escala de cinza...
+    if(len(imagem.shape) == 2):
+        imgParaConv = np.zeros([len(imagem)+2, len(imagem[0])+2], dtype=np.uint8)
+    else:    
+        imgParaConv = np.zeros([len(imagem)+2, len(imagem[0])+2, 3], dtype=np.uint8)
 
     #Segundo passo: Preencher a nova imagem com a
     #imagem passada como argumento
@@ -232,16 +237,29 @@ def convolve(imagem, mascara):
         imgParaConv[i+1][len(imgParaConv[0])-1] = imagem[i][len(imagem[0])-1]
 
     #Hora da magia acontecer!
-    #Aqui efetuaremos a convolução da imagem pela máscara dada    
-    imgConv = np.zeros([len(imagem), len(imagem[0]), 3], dtype=np.uint8)
-    for i in range(1, len(imgParaConv)-1):
-        for j in range(1, len(imgParaConv[0])-1):
-            li = -int(len(mascara)/2)
-            ls = int(len(mascara)/2)+1
-            for k in range(li, ls):
-                for l in range(li, ls):
-                    for c in range(3):
-                        imgConv[i-1][j-1][c] += mascara[k+1][l+1]*imgParaConv[k+i][l+j][c] 
+    #Aqui efetuaremos a convolução da imagem pela máscara dada
+
+    #Se a imagem estiver em escala de cinza...
+    if(len(imagem.shape) == 2):    
+        imgConv = np.zeros([len(imagem), len(imagem[0])], dtype=np.uint8)
+        for i in range(1, len(imgParaConv)-1):
+            for j in range(1, len(imgParaConv[0])-1):
+                li = -int(len(mascara)/2)
+                ls = int(len(mascara)/2)+1
+                for k in range(li, ls):
+                    for l in range(li, ls):
+                        imgConv[i-1][j-1] += mascara[k+1][l+1]*imgParaConv[k+i][l+j]
+    else:
+        imgConv = np.zeros([len(imagem), len(imagem[0]), 3], dtype=np.uint8)
+        for i in range(1, len(imgParaConv)-1):
+            for j in range(1, len(imgParaConv[0])-1):
+                li = -int(len(mascara)/2)
+                ls = int(len(mascara)/2)+1
+                for k in range(li, ls):
+                    for l in range(li, ls):
+                        for c in range(3):
+                            imgConv[i-1][j-1][c] += mascara[k+1][l+1]*imgParaConv[k+i][l+j][c]
+                            
     #Retorna a imagem convolucionada
     return imgConv
     
@@ -251,8 +269,8 @@ def maskBlur():
     return (1/16)*np.asarray([[1, 2, 1], [2, 4, 2], [1, 2, 1]])
 
 #Questao 17    
-def blur(imagem, mascara):
-    pass
+def blur(imagem):
+    return convolve(imagem, maskBlur())
 
 #Questao 18
 def seSquare3():
